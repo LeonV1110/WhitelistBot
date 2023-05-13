@@ -54,7 +54,7 @@ async def on_member_remove(member: Member) -> None:
 ########   Admin Commands    ########
 #####################################
 
-@bot.slash_command(description="Removes a player from the database , including their whitelist order and any whitelists on that order.", guild_ids = GUILD_IDS)
+@bot.slash_command(description="Removes a player from the database, including their whitelist order and any whitelists on that order", guild_ids = GUILD_IDS)
 @commands.default_member_permissions(kick_members=True)
 async def admin_nuke_player(inter: AppCmdInter, discordid: str, steam64id: str) -> None:
     await inter.response.defer()
