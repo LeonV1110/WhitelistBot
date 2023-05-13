@@ -8,7 +8,7 @@ import helpers.buttonCallbacks as bcb
 from helpers.exceptions import MyException
 from pymysql import OperationalError
 
-config = ConfigParser().read('config/config.ini')
+config = ConfigParser().read('config.ini')
 #get values
 TOKEN = config['DISCORD']['TOKEN']
 GUILD_IDS = [int(config['DISCORD']['GUILDID'])]
