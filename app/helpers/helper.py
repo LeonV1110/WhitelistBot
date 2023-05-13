@@ -3,7 +3,7 @@ from configparser import ConfigParser
 
 #Read in config file and set global variables
 config = ConfigParser()
-config.read('config.ini')
+config.read_dict('config.ini')
 
 def get_max_whitelists(tier):
     tierDict = {}
