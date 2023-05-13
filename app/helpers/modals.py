@@ -23,9 +23,12 @@ class RegisterModal(Modal):
         response = inter.text_values
         print(response)
         print(type(response))
-        for key, value in response:
-            steam64ID = value
-            print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
+        #for key, value in response:
+        #    steam64ID = value
+        #    print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
+
+
+        steam64ID = response.values()[0]
         try:
             print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo4")
             cl.register_player(member=inter.author, steam64ID=steam64ID)
