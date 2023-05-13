@@ -21,6 +21,8 @@ class RegisterModal(Modal):
         print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo2")
         embed = Embed(title='Registration was successful')
         response = inter.text_values
+        print(response)
+        print(type(response))
         for key, value in response:
             steam64ID = value
         try:
