@@ -21,18 +21,9 @@ class RegisterModal(Modal):
         print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo2")
         embed = Embed(title='Registration was successful')
         response = inter.text_values
-        print(response)
-        print(type(response))
-        #for key, value in response:
-        #    steam64ID = value
-        #    print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
-        print(response.values())
-        print(type(list(response.values())))
-        steam64ID = list(response.values())[0]
-
-
+        for key, value in response:
+            steam64ID = value
         try:
-            print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo4")
             cl.register_player(member=inter.author, steam64ID=steam64ID)
         except MyException as error:
             embed = Embed(title=error.message)
