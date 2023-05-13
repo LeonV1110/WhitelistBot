@@ -8,7 +8,7 @@ class PersistentBot(Bot):
         intents.members = True
         intents.message_content = True #TODO, probably not necesary
         self.persistent_views_added = False
-        super.__init__(intents=intents, command_prefix = '/')
+        super().__init__(intents=intents, command_prefix = '/')
         
 class ExplainEmbedView(View):
     def __init__(self) -> None:
