@@ -1,10 +1,13 @@
 import helpers.helper as hlp
 from disnake import Embed, Member
-from helpers.error import (DuplicatePlayerPresent, InsufficientTier, MyException,
+from helpers.exceptions import (DuplicatePlayerPresent, InsufficientTier, MyException,
                    PlayerNotFound)
-from database.player import DatabasePlayer, NewPlayer, Player, SteamPlayer, TPFIDPlayer
+from database.player import DatabasePlayer, NewPlayer, Player, SteamPlayer, BOTIDPlayer
 from pymysql import OperationalError
+from configparser import ConfigParser
 
+config = ConfigParser().read('config/config.ini')
+BOTNAME = config['SETTINGS']['BOTNAME']
 
 #Raises: InvalidSteam64ID, InvalidDiscordID, PlayerNotFound
 def update_player_from_member(member: Member):
@@ -16,15 +19,15 @@ def update_player_from_member(member: Member):
     player.update(player.steam64ID, discordID, name, permission, tier)
     return
 
-def get_player(discordID: str = None, steam64ID: str = None, TPFID: str = None) -> Player:
+def get_player(discordID: str = None, steam64ID: str = None, BOTID: str = None) -> Player:
     if discordID is not None:
         hlp.check_discordID(discordID)
         player = DatabasePlayer(discordID)
     elif steam64ID is not None:
         hlp.check_steam64ID(steam64ID)
         player = SteamPlayer(steam64ID)
-    elif TPFID is not None:
-        player = TPFIDPlayer(TPFID)
+    elif BOTID is not None:
+        player = BOTIDPlayer(BOTID)
     else:
         raise PlayerNotFound()
     return player
@@ -39,10 +42,10 @@ def register_player(member: Member, steam64ID: str):
     player.player_to_DB()
     return
 
-def remove_player(member: Member = None, discordID: str = None, steam64ID: str = None, TPFID: str = None):
+def remove_player(member: Member = None, discordID: str = None, steam64ID: str = None, BOTID: str = None):
     if member is not None:
         discordID = str(member.id)
-    player = get_player(discordID, steam64ID, TPFID)
+    player = get_player(discordID, steam64ID, BOTID)
     player.delete_player()
     return
 
@@ -57,20 +60,20 @@ def change_steam64ID(member: Member, steam64ID: str):
     player.update(steam64ID, discordID, name, permission, tier)
     return
 
-def get_player_info(member: Member = None, discordID: str = None, steam64ID: str = None, TPFID: str = None) -> Embed:
+def get_player_info(member: Member = None, discordID: str = None, steam64ID: str = None, BOTID: str = None) -> Embed:
     if member is not None:
         discordID = str(member.id)
-    player = get_player(discordID, steam64ID, TPFID)
+    player = get_player(discordID, steam64ID, BOTID)
 
     embed = Embed(title=player.name)
     embed.add_field(name = 'Steam64 ID', value= str(player.steam64ID), inline=False)
     embed.add_field(name = 'Discord ID', value= str(player.discordID), inline=False)
-    embed.add_field(name = 'TPF ID', value= str(player.TPFID), inline=False)
+    embed.add_field(name = f'{BOTNAME} ID', value= str(player.BOTID), inline=False)
     
     if player.check_whitelist():
         whitelist_status = 'Active'
-        whitelist_owner_TPFID = player.check_whos_whitelist_order()
-        whitelist_owner = TPFIDPlayer(whitelist_owner_TPFID)
+        whitelist_owner_BOTID = player.check_whos_whitelist_order()
+        whitelist_owner = BOTIDPlayer(whitelist_owner_BOTID)
         embed.add_field(name = 'Whitelisted by', value = whitelist_owner.name, inline = False)
         
     else:
@@ -81,47 +84,47 @@ def get_player_info(member: Member = None, discordID: str = None, steam64ID: str
     
     return embed
 
-def add_player_to_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_TPFID: str = None,
-player_discordID: str = None, player_steam64ID: str = None, player_TPFID: str = None) -> Embed:
+def add_player_to_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_BOTID: str = None,
+player_discordID: str = None, player_steam64ID: str = None, player_BOTID: str = None) -> Embed:
     if owner_member is not None:
         owner_discordID = str(owner_member.id)
 
-    owner = get_player(owner_discordID, owner_steam64ID, owner_TPFID)
-    player = get_player(player_discordID, player_steam64ID, player_TPFID)
+    owner = get_player(owner_discordID, owner_steam64ID, owner_BOTID)
+    player = get_player(player_discordID, player_steam64ID, player_BOTID)
 
     if owner.whitelist_order is None:
         return Embed(title="It seems like you don't have a whitelist subscription. Make sure you are subscribed on Patreon and reconnect your discord account to Patreon.")
     else:
-        owner.whitelist_order.add_whitelist(player.TPFID)
+        owner.whitelist_order.add_whitelist(player.BOTID)
         return Embed(title= player.name + ' has been successfully added to your subscription.')
     
-def remove_player_from_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_TPFID: str = None,
-player_discordID: str = None, player_steam64ID: str = None, player_TPFID: str = None) -> Embed:
+def remove_player_from_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_BOTID: str = None,
+player_discordID: str = None, player_steam64ID: str = None, player_BOTID: str = None) -> Embed:
     if owner_member is not None:
         owner_discordID = str(owner_member.id)
 
-    owner = get_player(owner_discordID, owner_steam64ID, owner_TPFID)
-    player = get_player(player_discordID, player_steam64ID, player_TPFID)
+    owner = get_player(owner_discordID, owner_steam64ID, owner_BOTID)
+    player = get_player(player_discordID, player_steam64ID, player_BOTID)
 
     if owner.whitelist_order is None:
         return Embed(title="It seems like you don't have a whitelist subscription. Make sure you are subscribed on Patreon and reconnect your discord account to Patreon.")
     else:
-        owner.whitelist_order.remove_whitelist(player.TPFID)
+        owner.whitelist_order.remove_whitelist(player.BOTID)
         return Embed(title = player.name + ' has been successfully removed from your subscription.')
 
-def update_player_on_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_TPFID: str = None,
-old_player_discordID: str = None, old_player_steam64ID: str = None, old_player_TPFID: str = None,
-new_player_discordID: str = None, new_player_steam64ID: str = None, new_player_TPFID: str = None) -> Embed:
+def update_player_on_whitelist(owner_member: Member = None, owner_discordID: str = None, owner_steam64ID: str = None, owner_BOTID: str = None,
+old_player_discordID: str = None, old_player_steam64ID: str = None, old_player_BOTID: str = None,
+new_player_discordID: str = None, new_player_steam64ID: str = None, new_player_BOTID: str = None) -> Embed:
     if owner_member is not None:
         owner_discordID = str(owner_member.id)
 
-    owner = get_player(owner_discordID, owner_steam64ID, owner_TPFID)
+    owner = get_player(owner_discordID, owner_steam64ID, owner_BOTID)
     try:
-        old_player = get_player(old_player_discordID, old_player_steam64ID, old_player_TPFID)
+        old_player = get_player(old_player_discordID, old_player_steam64ID, old_player_BOTID)
     except PlayerNotFound:
         return Embed(title="The old player isn't in our database, and thus cannot be replaced.")
     try:
-        new_player = get_player(new_player_discordID, new_player_steam64ID, new_player_TPFID)
+        new_player = get_player(new_player_discordID, new_player_steam64ID, new_player_BOTID)
     except PlayerNotFound:
         return Embed(title= "The new player hasn't registered, and thus cannot be added to the whitelist")
 
@@ -131,23 +134,23 @@ new_player_discordID: str = None, new_player_steam64ID: str = None, new_player_T
         return Embed(title="It seems like you don't have a whitelist subscription. Make sure you are subscribed on Patreon and reconnect your discord account to Patreon.")
 
     try:
-        owner.whitelist_order.remove_whitelist(old_player.TPFID)
-        owner.whitelist_order.add_whitelist(new_player.TPFID)
+        owner.whitelist_order.remove_whitelist(old_player.BOTID)
+        owner.whitelist_order.add_whitelist(new_player.BOTID)
     except (InsufficientTier, DuplicatePlayerPresent) as error:
         embed = Embed(title = error.message)
         try:
-            owner.whitelist_order.add_whitelist(old_player.TPFID)
+            owner.whitelist_order.add_whitelist(old_player.BOTID)
         except (OperationalError, MyException) as error:
             embed = Embed(title = "You have successfully broken the bot, I guess you can ping Leon.")
         return embed
     
     return Embed(title = old_player.name + ' has been successfully replaced with ' + new_player.name + '.')
 
-def get_whitelist_info(member: Member = None, discordID:str = None, steam64ID: str = None, TPFID: str = None):
+def get_whitelist_info(member: Member = None, discordID:str = None, steam64ID: str = None, BOTID: str = None):
     if member is not None:
         discordID = str(member.id)
 
-    player = get_player(discordID, steam64ID, TPFID)
+    player = get_player(discordID, steam64ID, BOTID)
 
     if player.whitelist_order is None:
         return Embed(title="It seems like you don't have a whitelist subscription. Make sure you are subscribed on Patreon and reconnect your discord account to Patreon.")
@@ -155,7 +158,7 @@ def get_whitelist_info(member: Member = None, discordID:str = None, steam64ID: s
     wo = player.whitelist_order
     whitelistees = ""
     for whitelist in wo.whitelists:
-        player = get_player(TPFID=whitelist.TPFID)
+        player = get_player(BOTID=whitelist.BOTID)
         whitelistees += player.name + ' ' + player.steam64ID + '\n'
     
     if player.check_whitelist():

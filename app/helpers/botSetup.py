@@ -1,4 +1,3 @@
-from typing import Optional
 from disnake.ext.commands import Bot
 from disnake import Intents
 from disnake.ui import View

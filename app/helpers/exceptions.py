@@ -22,8 +22,8 @@ class DuplicatePlayerPresentDiscord(DuplicatePlayerPresent):
         self.message = message
         super().__init__(self.message)
 
-class DuplicatePlayerPresentTPFID(DuplicatePlayerPresent):
-    def __init__(self, message="There is already a player with this TPFID."):
+class DuplicatePlayerPresentBOTID(DuplicatePlayerPresent):
+    def __init__(self, message="There is already a player with this BOTID."):
         self.message = message
         super().__init__(self.message)
 
