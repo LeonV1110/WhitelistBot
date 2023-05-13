@@ -6,7 +6,7 @@ from database.player import DatabasePlayer, NewPlayer, Player, SteamPlayer, BOTI
 from pymysql import OperationalError
 from configparser import ConfigParser
 
-config = ConfigParser().read('config.ini')
+config = ConfigParser().read_dict('config.ini')
 BOTNAME = config['SETTINGS']['BOTNAME']
 
 #Raises: InvalidSteam64ID, InvalidDiscordID, PlayerNotFound
