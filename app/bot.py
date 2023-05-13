@@ -122,6 +122,19 @@ async def get_role_ids(inter: AppCmdInter) -> None:
     await inter.followup.send(embed=embed)
     return
 
+@bot.slash_command(description="Does the database setup, don't touch unless you're called Leon.", guild_ids=guild_ids)
+@commands.default_member_permissions(administrator=True)
+async def setup_database(inter):
+    await inter.response.defer()
+    try:
+        setup_database()
+    except:
+        await inter.followup.send(embed=Embed(title='I have made a booboo, please go fix it.'))
+        return
+    embed = Embed(title='Done')
+    await inter.followup.send(embed=embed)
+    return
+
 @bot.slash_command(description="Dont worry, don't touch unless you're called Leon.", guild_ids=GUILD_IDS)
 @commands.default_member_permissions(kick_members=True, manage_roles=True, administrator=True)
 async def explain_embed_setup(inter):
