@@ -20,7 +20,7 @@ class RegisterModal(Modal):
     async def callback(self, inter: ModalInteraction):
         print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo2")
         embed = Embed(title='Registration was successful')
-        response = inter.text_values
+        response = inter.text_values.items()
         for key, value in response:
             steam64ID = value
         try:
