@@ -1,0 +1,6 @@
+# To ensure app dependencies are ported from your virtual environment/host machine into your container, run 'pip freeze > requirements.txt' in the terminal to overwrite this file
+disnake==2.8.1
+pygsheets==2.0.6
+pandas==2.0.1
+PyMySQL==1.0.3
+PyMySQL[rsa]
