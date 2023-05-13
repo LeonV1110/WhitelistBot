@@ -18,6 +18,7 @@ class RegisterModal(Modal):
         super().__init__(title='Register', components=components, custom_id=str(inter_id), timeout=600)
     
     async def callback(self, inter: ModalInteraction):
+        print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo2")
         embed = Embed(title='Registration was successful')
         response = inter.text_values.items()
         for key, value in response:
@@ -32,4 +33,5 @@ class RegisterModal(Modal):
         await inter.response.send_message(embed=embed, ephemeral=True)
 
     async def on_error(self, error: Exception, inter: ModalInteraction):
+        print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
         await inter.response.send_message(error)

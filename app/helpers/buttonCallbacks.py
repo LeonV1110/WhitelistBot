@@ -45,5 +45,6 @@ async def update_data_button_callback(inter):
     return
 
 async def register_button_callback(inter):
+    print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo")
     await inter.response.send_modal(modal = RegisterModal(inter.id))
     return
