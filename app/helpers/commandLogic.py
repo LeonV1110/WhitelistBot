@@ -6,7 +6,8 @@ from database.player import DatabasePlayer, NewPlayer, Player, SteamPlayer, BOTI
 from pymysql import OperationalError
 from configparser import ConfigParser
 
-config = ConfigParser().read('config.ini')
+config = ConfigParser()
+config.read('config.ini')
 print(config)
 print(type(config))
 BOTNAME = config['SETTINGS']['BOTNAME']
