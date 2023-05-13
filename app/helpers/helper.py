@@ -14,6 +14,10 @@ def get_max_whitelists(tier):
 def readRoles(config, type: str) -> dict:
     print("HELUP")
     res = {}
+    print(config)
+    permissionDict = config[f'{type}_ROLES']
+    print('--------------------------------------')
+    print(permissionDict)
     for key, value in config[f'{type}_ROLES']:
         res[int(value)] = config[f'{type}_NAMES'][key]
     return res
