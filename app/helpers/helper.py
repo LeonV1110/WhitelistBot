@@ -3,22 +3,18 @@ from configparser import ConfigParser
 
 #Read in config file and set global variables
 config = ConfigParser()
-config.read_dict('config.ini')
+config.read('config.ini')
 
 def get_max_whitelists(tier):
     tierDict = {}
-    for key, value in config['WHITELIST_NAMES']:
+    for key, value in config['WHITELIST_NAMES'].items():
         tierDict[value] = config['WHITELIST_ALLOWANCE'][key]
     return tierDict[tier]
 
-def readRoles(config, type: str) -> dict:
+def readRoles(config: ConfigParser, type: str) -> dict:
     print("HELUP")
     res = {}
-    print(config)
-    permissionDict = config[f'{type}_ROLES']
-    print('--------------------------------------')
-    print(permissionDict)
-    for key, value in config[f'{type}_ROLES']:
+    for key, value in config[f'{type}_ROLES'].items():
         res[int(value)] = config[f'{type}_NAMES'][key]
     return res
 
