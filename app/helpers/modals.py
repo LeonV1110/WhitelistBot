@@ -24,7 +24,9 @@ class RegisterModal(Modal):
         for key, value in response:
             steam64ID = value
         try:
+            print("Something went wrong")
             cl.register_player(member=inter.author, steam64ID=steam64ID)
+            print("Really wrong")
         except MyException as error:
             embed = Embed(title=error.message)
         except OperationalError:
