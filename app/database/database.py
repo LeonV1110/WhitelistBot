@@ -28,11 +28,17 @@ def excecute_query(sql: str, vars: tuple = None, format: int = 3):
     else: return
 
 def setup_database():
+    create_schema()
     setup_player_table()
     setup_order_table()
     setup_whitelist_table()
     setup_permission_table()
     return
+
+def create_schema():
+    sql = """CREATE SCHEMA %s ;"""
+    vars = (DATABASENAME)
+    excecute_query(sql, vars)
 
 def setup_player_table():
     sql = """CREATE TABLE `player` (
