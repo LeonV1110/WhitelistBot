@@ -2,7 +2,8 @@ from helpers.exceptions import InvalidSteam64ID, InvalidDiscordID
 from configparser import ConfigParser
 
 #Read in config file and set global variables
-config = ConfigParser().read('config.ini')
+config = ConfigParser()
+config.read('config.ini')
 
 def get_max_whitelists(tier):
     tierDict = {}

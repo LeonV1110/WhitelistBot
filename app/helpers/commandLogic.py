@@ -8,8 +8,6 @@ from configparser import ConfigParser
 
 config = ConfigParser()
 config.read('config.ini')
-print(config)
-print(type(config))
 BOTNAME = config['SETTINGS']['BOTNAME']
 
 #Raises: InvalidSteam64ID, InvalidDiscordID, PlayerNotFound
