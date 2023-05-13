@@ -21,6 +21,7 @@ class RegisterModal(Modal):
         print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo2")
         embed = Embed(title='Registration was successful')
         response = inter.text_values.items()
+        print(response)
         for key, value in response:
             steam64ID = value
         try:
@@ -33,5 +34,4 @@ class RegisterModal(Modal):
         await inter.response.send_message(embed=embed, ephemeral=True)
 
     async def on_error(self, error: Exception, inter: ModalInteraction):
-        print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
         await inter.response.send_message(error)
