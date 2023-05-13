@@ -28,7 +28,7 @@ class RegisterModal(Modal):
         #    print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo3")
 
 
-        steam64ID = response.values()[0]
+        steam64ID = list(response.values())[0]
         try:
             print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo4")
             cl.register_player(member=inter.author, steam64ID=steam64ID)
