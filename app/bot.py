@@ -122,7 +122,7 @@ async def get_role_ids(inter: AppCmdInter) -> None:
     await inter.followup.send(embed=embed)
     return
 
-@bot.slash_command(description="Does the database setup, don't touch unless you're called Leon.", guild_ids=guild_ids)
+@bot.slash_command(description="Does the database setup, don't touch unless you're called Leon.", guild_ids=GUILD_IDS)
 @commands.default_member_permissions(administrator=True)
 async def setup_database(inter):
     await inter.response.defer()
