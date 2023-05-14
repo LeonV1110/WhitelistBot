@@ -67,7 +67,7 @@ class RemoveDataModal(Modal):
     def __init__(self, inter_id):
         components = [
             TextInput(
-            label="Type 'DELETE' if you are sure you want to remove yourself from the database. You will lose any whitelist.",
+            label="Type 'DELETE' if you want to delete your data",
             placeholder='DELETE',
             custom_id=str(inter_id),
             style=TextInputStyle.short,
