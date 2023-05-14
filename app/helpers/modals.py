@@ -61,9 +61,6 @@ class AddFriendModal(Modal):
             title="The bot is currently having issues, please try again later.")
         await inter.response.send_message(embed=embed, ephemeral=True)
 
-    async def on_error(self, error: Exception, inter: ModalInteraction):
-        await inter.response.send_message(error, ephemeral=True)
-
 class RemoveDataModal(Modal):
     def __init__(self, inter_id):
         components = [
