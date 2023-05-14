@@ -9,7 +9,7 @@ def get_max_whitelists(tier):
     tierDict = {}
     for key, value in config['WHITELIST_NAMES'].items():
         tierDict[value] = config['WHITELIST_ALLOWANCE'][key]
-    return tierDict[tier]
+    return int(tierDict[tier])
 
 def readRoles(config: ConfigParser, type: str) -> dict:
     print("HELUP")
