@@ -140,16 +140,14 @@ async def setup_database(inter):
 async def explain_embed_setup(inter):
     await inter.response.defer()
     embed = Embed(title=f'The {BOTNAME} whitelist bot',
-                  colour=Colour.dark_gold())  # TODO fix colour
+                  colour=Colour.dark_orange())  # TODO fix colour
     embed.add_field(name='Register', value='''
         Use this button to register yourself with the bot, it will ask you for your steam64 ID. Getting registered is required to activate your whitelist or to get whitelisted by a friend. \n
-        \n
         - Note: To find your Steam64 ID go to the settings page on your steam account and click on the "View Account Details" option. A new page will open in steam, at the top it will state "Steam64 ID: 7656119xxxxxxxxxx" (with the x's being unique to your account). This is your steam64ID that you need to use when registering. \n
         - Important: Once you are registered and have an active whitelist it will only take effect once a new round has started on the server (maximum 2 hours).\n
         ''', inline=False)
     embed.add_field(name='Add a Friend', value='''
         If you have a higher tier patreon subscription you have the abilitty to add friends, make sure they register and then get their steam64 ID.\n
-        \n
         - Note: You can only add one friend at a time.\n
         - Important: Once you added your friend their whitelist will only take effect once a new round has started (maximum 2 hours).\n
         ''', inline=False)
@@ -170,22 +168,18 @@ async def explain_embed_setup(inter):
         - Whitelist subscription tier\n
         - Whitelist status (it will show whether your whitelist is "Active" or "Inactive")\n
         - Whitelists (a list of everyone whitelisted under your subscription including yourself)\n
-        \n
         - Note: Only works if you have a whitelist role in this discord.\n
         ''', inline=False)
     embed.add_field(name='Update My Data', value='''
         If something related to your whitelist is supposed to be working but isnt you can click this button first to force the bot to update. If that has no effect you can #create-ticekt with the admin team and we can take a better look.\n
-        \n
         - Important: Whitelist it will only take effect once a new round has started on the server (maximum 2 hours).\n
         ''', inline=False)
     embed.add_field(name='Remove a Friend', value='''
         If you want to remove a friend from your whitelist you can do that here. To remove them enter their steam64 ID in the provided form.\n
-
         - Note: Dont worry, using this button wont remove them as your friend in real life. It just means that they are no longer whitelisted under your subscription.
         ''', inline=False)
     embed.add_field(name='Delete My Data', value='''
         If you want to remove all your info from the database for whatever reason you can do this with this button, it will ask you to confirm by having you type in "DELETE" so you cant do it on accident.\n
-        \n
         - Note: This means that you will not be whitelisted anymore (even if you are whitelisted through a friend).
         ''', inline=False)
     
