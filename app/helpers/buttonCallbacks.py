@@ -2,7 +2,7 @@ from helpers.exceptions import MyException
 import helpers.commandLogic as cl
 from disnake import Embed
 from pymysql import OperationalError
-from helpers.modals import RegisterModal
+from helpers.modals import RegisterModal, AddFriendModal, RemoveDataModal, RemoveFriendModal
 
 async def get_info_button_callback(inter):
     await inter.response.defer(ephemeral=True)
@@ -45,6 +45,17 @@ async def update_data_button_callback(inter):
     return
 
 async def register_button_callback(inter):
-    print("boooooooooooooooooooooooooooooooooooooooooooooooooooooo")
     await inter.response.send_modal(modal = RegisterModal(inter.id))
+    return
+
+async def add_to_whitelist_button_callback(inter):
+    await inter.response.send_modal(modal = AddFriendModal(inter.id))
+    return
+
+async def remove_data_button_callback(inter):
+    await inter.response.send_modal(modal = RemoveDataModal(inter.id))
+    return
+
+async def remove_from_whitelist_button_callback(inter):
+    await inter.response.send_modal(modal = RemoveFriendModal(inter.id))
     return
