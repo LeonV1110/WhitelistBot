@@ -78,11 +78,12 @@ def get_player_info(member: Member = None, discordID: str = None, steam64ID: str
         whitelist_status = 'Active'
         whitelist_owner_BOTID = player.check_whos_whitelist_order()
         whitelist_owner = BOTIDPlayer(whitelist_owner_BOTID)
+        embed.add_field(name = 'Whitelist Status', value = whitelist_status, inline=False)
         embed.add_field(name = 'Whitelisted by', value = whitelist_owner.name, inline = False)
         
     else:
         whitelist_status = 'Inactive'
-    embed.add_field(name = 'Whitelist Status', value = whitelist_status, inline=False)
+        embed.add_field(name = 'Whitelist Status', value = whitelist_status, inline=False)
     if player.whitelist_order is not None:
         embed.add_field(name = 'Whitelist Subscription', value= player.whitelist_order.tier, inline=False)
     
