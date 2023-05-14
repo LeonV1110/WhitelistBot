@@ -202,7 +202,7 @@ async def explain_embed_setup(inter):
     update_data_button.callback = bcb.update_data_button_callback
 
     remove_button = Button(style = ButtonStyle.red,
-        label='Delete My data', custom_id='embed:remove')
+        label='Delete My Data', custom_id='embed:remove')
     remove_button.callback = bcb.remove_data_button_callback
 
     remove_from_whitelist_button = Button(style = ButtonStyle.red,

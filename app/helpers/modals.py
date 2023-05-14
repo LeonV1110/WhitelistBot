@@ -61,6 +61,8 @@ class AddFriendModal(Modal):
             title="The bot is currently having issues, please try again later.")
         await inter.response.send_message(embed=embed, ephemeral=True)
 
+    async def on_error(self, error: Exception, inter: ModalInteraction):
+        await inter.response.send_message(error, ephemeral=True)
 class RemoveDataModal(Modal):
     def __init__(self, inter_id):
         components = [
@@ -71,7 +73,7 @@ class RemoveDataModal(Modal):
             style=TextInputStyle.short,
             max_length=6
             )]
-        super.__init__(title='Delete yourself from our database.', components= components, custom_id= str(inter_id), timeout =600)
+        super().__init__(title='Delete yourself from our database.', components= components, custom_id= str(inter_id), timeout =600)
 
     async def callback(self, inter: ModalInteraction):
         embed = Embed(title='Your information has been successfully deleted')
