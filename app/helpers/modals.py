@@ -53,7 +53,7 @@ class AddFriendModal(Modal):
                 steam64ID = value
 
         try:
-            cl.add_player_to_whitelist(owner_member=inter.author, player_steam64ID=steam64ID)
+            cl.add_player_to_whitelist(owner_member=inter.author, player_steam64ID=str(steam64ID))
         except MyException as error:
             embed = Embed(title=error.message)
         except OperationalError:

@@ -2,7 +2,7 @@ from helpers.exceptions import MyException
 import helpers.commandLogic as cl
 from disnake import Embed
 from pymysql import OperationalError
-from helpers.modals import RegisterModal, AddFriendModal, RemoveDataModal, RemoveFriendModal
+from helpers.modals import RegisterModal, AddFriendModal, RemoveDataModal, RemoveFriendModal, UpdateSteamIDModal
 
 async def get_info_button_callback(inter):
     await inter.response.defer(ephemeral=True)
@@ -61,5 +61,5 @@ async def remove_from_whitelist_button_callback(inter):
     return
 
 async def update_steamid_button_callback(inter):
-    #TODO modal
+    await inter.response.send_modal(modal = UpdateSteamIDModal(inter.id))
     return
