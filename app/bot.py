@@ -182,8 +182,12 @@ async def explain_embed_setup(inter):
     register_button.callback = bcb.register_button_callback
 
     add_to_whitelist_button = Button(style = ButtonStyle.primary,
-        label= 'Add a friend', custom_id='embed:addFriend')
+        label= 'Add a Friend', custom_id='embed:addFriend')
     add_to_whitelist_button.callback = bcb.add_to_whitelist_button_callback
+
+    update_steamid_button = Button( style=ButtonStyle.primary,
+        label='Change My Steam64ID')
+    update_steamid_button.callback = bcb.update_steamid_button_callback
 
     get_info_button = Button(
         label='Get My Info', custom_id='embed:getInfoButton')
@@ -198,22 +202,24 @@ async def explain_embed_setup(inter):
     update_data_button.callback = bcb.update_data_button_callback
 
     remove_button = Button(style = ButtonStyle.red,
-        label='Delete my data', custom_id='embed:remove')
+        label='Delete My data', custom_id='embed:remove')
     remove_button.callback = bcb.remove_data_button_callback
 
-    remove_from_whitelist_button = Button(
-        label='Remove a friend', custom_id='embed:removeFriend')
+    remove_from_whitelist_button = Button(style = ButtonStyle.red,
+        label='Remove a Friend', custom_id='embed:removeFriend')
     remove_from_whitelist_button.callback = bcb.remove_from_whitelist_button_callback
 
 
     view = ExplainEmbedView()
     view.add_item(register_button)
     view.add_item(add_to_whitelist_button)
+    view.add_item(update_steamid_button)
     view.add_item(get_info_button)
     view.add_item(get_whitelist_info_button)
     view.add_item(update_data_button) #also updates steam64ID (TODO)
-    view.add_item(remove_button)
+    
     view.add_item(remove_from_whitelist_button)
+    view.add_item(remove_button)
     
     await inter.followup.send(embed=embed, view=view)
     return

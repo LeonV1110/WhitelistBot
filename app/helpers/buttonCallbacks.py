@@ -59,3 +59,7 @@ async def remove_data_button_callback(inter):
 async def remove_from_whitelist_button_callback(inter):
     await inter.response.send_modal(modal = RemoveFriendModal(inter.id))
     return
+
+async def update_steamid_button_callback(inter):
+    #TODO modal
+    return

@@ -49,7 +49,6 @@ class AddFriendModal(Modal):
     async def callback(self, inter: ModalInteraction):
         embed = Embed(title='Your friend was successfully added')
         response = inter.text_values.items()
-        i = 0
         for key, value in response:
                 steam64ID = value
 
@@ -114,12 +113,41 @@ class RemoveFriendModal(Modal):
     async def callback(self, inter: ModalInteraction):
         embed = Embed(title='Your friend was successfully removed')
         response = inter.text_values.items()
-        i = 0
         for key, value in response:
                 steam64ID = value
 
         try:
             cl.remove_player_from_whitelist(owner_member=inter.author, player_steam64ID=steam64ID)
+        except MyException as error:
+            embed = Embed(title=error.message)
+        except OperationalError:
+            embed = Embed(
+            title="The bot is currently having issues, please try again later.")
+        await inter.response.send_message(embed=embed, ephemeral=True)
+
+    async def on_error(self, error: Exception, inter: ModalInteraction):
+        await inter.response.send_message(error, ephemeral=True)
+
+class UpdateSteamIDModal(Modal):
+    def __init__(self, inter_id):
+        components = [
+            TextInput(
+            label= 'Please provide your new Steam64ID.',
+            placeholder='76561198029817168',
+            custom_id=str(inter_id),
+            style=TextInputStyle.short,
+            max_length=19
+            )]
+        super().__init__(title='Change your steam64ID', components=components, custom_id=str(inter_id), timeout=600)
+
+    async def callback(self, inter: ModalInteraction):
+        embed = Embed(title='Your Steam64ID was successfully updated.')
+        response = inter.text_values.items()
+        for key, value in response:
+                steam64ID = value
+
+        try:
+            cl.update_player_from_member(inter.author)
         except MyException as error:
             embed = Embed(title=error.message)
         except OperationalError:
