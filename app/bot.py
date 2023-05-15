@@ -140,7 +140,7 @@ async def setup_database(inter):
 async def explain_embed_setup(inter):
     await inter.response.defer()
     embed = Embed(title=f'The {BOTNAME} whitelist bot',
-                  colour=Colour.dark_orange())  # TODO fix colour
+                  colour=Colour.from_rgb(255, 199, 0))
     embed.add_field(name='Patreon', value='Get your whitelist at https://www.patreon.com/DeadOnDismount')
     embed.add_field(name='Register', value='''
         Use this button to register yourself with the bot, it will ask you for your steam64 ID. Getting registered is required to activate your whitelist or to get whitelisted by a friend. \n
