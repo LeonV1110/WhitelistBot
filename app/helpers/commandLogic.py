@@ -37,11 +37,8 @@ def register_player(member: Member, steam64ID: str):
     hlp.check_steam64ID(steam64ID)
     discordID = str(member.id)
     name = f"{member.name}#{member.discriminator}"
-    print("test")
     tier = hlp.convert_role_to_tier(member.roles)
-    print("test2")
     permission = hlp.convert_role_to_perm(member.roles)
-    print("test3")
     player = NewPlayer(steam64ID, discordID, name, permission, tier)
     player.player_to_DB()
     return

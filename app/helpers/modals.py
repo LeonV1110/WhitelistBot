@@ -146,7 +146,7 @@ class UpdateSteamIDModal(Modal):
                 steam64ID = value
 
         try:
-            cl.update_player_from_member(inter.author)
+            cl.change_steam64ID(inter.author, steam64ID)
         except MyException as error:
             embed = Embed(title=error.message)
         except OperationalError:

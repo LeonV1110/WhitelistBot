@@ -222,8 +222,7 @@ async def explain_embed_setup(inter):
     view.add_item(update_steamid_button)
     view.add_item(get_info_button)
     view.add_item(get_whitelist_info_button)
-    view.add_item(update_data_button) #also updates steam64ID (TODO)
-    
+    view.add_item(update_data_button)
     view.add_item(remove_from_whitelist_button)
     view.add_item(remove_button)
     
