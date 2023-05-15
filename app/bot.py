@@ -141,6 +141,7 @@ async def explain_embed_setup(inter):
     await inter.response.defer()
     embed = Embed(title=f'The {BOTNAME} whitelist bot',
                   colour=Colour.dark_orange())  # TODO fix colour
+    embed.add_field(title='Patreon', value='Get your whitelist at https://www.patreon.com/DeadOnDismount')
     embed.add_field(name='Register', value='''
         Use this button to register yourself with the bot, it will ask you for your steam64 ID. Getting registered is required to activate your whitelist or to get whitelisted by a friend. \n
         - Note: To find your Steam64 ID go to the settings page on your steam account and click on the "View Account Details" option. A new page will open in steam, at the top it will state "Steam64 ID: 7656119xxxxxxxxxx" (with the x's being unique to your account). This is your steam64ID that you need to use when registering. \n
